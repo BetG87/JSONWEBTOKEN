@@ -20,9 +20,30 @@ const userSchema = new mongoose.Schema({
         require: true,
         minlength: 6
     },
+    numberPhone: {
+        type: String,
+        require: true,
+        minlength: 8
+    },
     admin: {
         type: Boolean,
         default: false
+    },
+    isActive: {
+        type: Boolean,
+        default: true,
+    },
+    bankAccounts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'BankAccount',
+    }],
+    gameAccounts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'GameAccount',
+    }],
+    status: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Status',
     },
 },
     {

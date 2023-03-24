@@ -1,31 +1,39 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
+const BankAccount = require('../models/BankAccount')
+
 
 let refreshTokens = [];
 const authController = {
 	//REGISTER
 	registerUser: async (req, res) => {
 		try {
-			console.log('1');
 			const salt = await bcrypt.genSalt(10);
-			console.log('1.5');
 			const hashed = await bcrypt.hash(req.body.password, salt);
-			console.log('2');
 			//Create  new user
 			const newUser = await new User({
 				username: req.body.username,
 				email: req.body.email,
 				password: hashed,
+				bankAccounts: req.body.bankAccounts,
+				gameAccounts: req.body.gameAccounts,
 			});
-			console.log('3');
+
 			//save to DB
 			const user = await newUser.save();
-			console.log(user);
+			const newBankAccount = new BankAccount();
+			newBankAccount.ownerName = req.body.fullName
+			newBankAccount.username = req.body.username
+			newBankAccount.bankId = req.body.bankId
+			newBankAccount.bankAccountNumber = req.body.bankAccountNumber
+			newBankAccount.user = user._id
+			await newBankAccount.save();
+			await user.updateOne({ $push: { bankAccounts: newBankAccount._id } })
 			return res.status(200).json(user);
 		}
 		catch (err) {
-			return res.status(500).json("abc");
+			return res.status(500).json(err);
 		}
 	},
 	generateAccessToken: (user) => {
