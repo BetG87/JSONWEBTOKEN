@@ -17,7 +17,7 @@ const userController =
     },
     getById: async (req, res) => {
         try {
-            const user = await User.findById(req.params.id).populate("bankAccounts gameAccounts");
+            const user = await User.findById(req.params.id).populate("bankAccounts gameAccounts gameProduct");
 
             return res.status(200).json(user)
         }

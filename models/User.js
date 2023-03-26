@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'GameAccount',
     }],
+    gameProduct: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'GameProduct',
+    }],
     status: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Status',

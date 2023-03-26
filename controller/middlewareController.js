@@ -8,7 +8,7 @@ const middlewareController =
         const token = req.headers['x-access-token'] || req.headers['authorization']; 
         if (token) {
             //Bearer 
-            const accessToken = token.split(' ')[2];
+            const accessToken = token.split(' ')[1];
             jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
                 if (err) {
                     return res.status(403).json('Token is not valid');
