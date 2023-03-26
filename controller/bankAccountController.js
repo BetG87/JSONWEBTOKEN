@@ -26,6 +26,15 @@ const bankAccountController = {
         }
 
     },
+    getAllBankAccountAdmin: async (req, res) => {
+        try {
+            const bankAccount = await BankAccount.find({ isAdmin: true });
+            return res.status(200).json(bankAccount)
+        } catch (err) {
+            return res.status(500).json(err); //HTTP REQUEST CODE
+        }
+
+    },
     getById: async (req, res) => {
         try {
             const bankAccount = await BankAccount.findById(req.params.id).populate('user');
