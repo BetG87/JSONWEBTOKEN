@@ -18,6 +18,9 @@ const authController = {
 				password: hashed,
 				bankAccounts: req.body.bankAccounts,
 				gameAccounts: req.body.gameAccounts,
+				gameProduct: req.body.gameProduct,
+				numberPhone: req.body.numberPhone,
+				fullName: req.body.fullName
 			});
 
 			//save to DB

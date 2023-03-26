@@ -57,6 +57,9 @@ const userController =
             if (req.body.gameAccounts != null) {
                 user.gameAccounts = req.body.gameAccounts;
             }
+            if (req.body.gameProduct != null) {
+                user.gameProduct = req.body.gameProduct;
+            }
 
             if (req.body.status != null) {
                 user.status = req.body.status;

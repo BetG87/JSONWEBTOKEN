@@ -1,17 +1,24 @@
 const GameAccount = require('../models/GameAccount')
-const User = require('../models/User')
+const User = require('../models/User');
+const { use } = require('../routes/user');
 
 const gameAccountController = {
     addBankAccount: async (req, res) => {
         try {
-            console.log('1')
             const newGameAccount = new GameAccount(req.body);
 
             const savedGameAccount = await newGameAccount.save();
             if (req.body.user) {
-                const user = User.findById(req.body.user);
+                const user = await User.findOne({ _id: req.body.user });
                 await user.updateOne({ $push: { gameAccounts: savedGameAccount._id } })
+                if (user && user.gameProduct && user.gameProduct.includes(req.body.gameProduct)) {
+                } else {
+                    const user1 = await User.findOne({ _id: req.body.user });
+                    await user1.updateOne({ $push: { gameProduct: req.body.gameProduct } })
+                }
+               
             }
+            
             return res.status(200).json(savedGameAccount);
         } catch (err) {
             return res.status(500).json(err); //HTTP REQUEST CODE
