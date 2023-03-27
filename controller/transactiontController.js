@@ -28,7 +28,16 @@ const transactionController = {
     },
     getById: async (req, res) => {
         try {
-            const transaction = await Transaction.findById(req.params.id).populate('bankAccount');
+            const transaction = await Transaction.find(req.params.id).populate('bankAccount');
+            return res.status(200).json(transaction);
+        }
+        catch (err) {
+            return res.status(500).json(err);
+        }
+    },
+    getByUserId: async (req, res) => {
+        try {
+            const transaction = await Transaction.find({ user: req.body.user }).populate('bankAccount');
             return res.status(200).json(transaction);
         }
         catch (err) {
