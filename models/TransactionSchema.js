@@ -22,7 +22,7 @@ const transactionSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
-    gameProduct: {
+  gameProduct: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'GameProduct',
     },
@@ -33,7 +33,9 @@ const transactionSchema = new mongoose.Schema({
     status: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Status',
-        default: "641c30e3bb9721514ea420c9",
+    },
+    note: {
+        type: String,
     },
 });
 
