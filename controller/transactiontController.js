@@ -2,9 +2,8 @@ const Transaction = require('../models/TransactionSchema')
 const BankAccount = require('../models/BankAccount')
 
 const transactionController = {
-    addBankAccount: async (req, res) => {
+    addTransaction: async (req, res) => {
         try {
-            console.log('1')
             const newtransaction = new Transaction(req.body);
 
             const savedTransaction = await newtransaction.save();
@@ -17,18 +16,17 @@ const transactionController = {
             return res.status(500).json(err); //HTTP REQUEST CODE
         }
     },
-    getAllBankAccount: async (req, res) => {
+    getAllTransaction: async (req, res) => {
         try {
             const bankAccount = await Transaction.find();
             return res.status(200).json(bankAccount)
         } catch (err) {
             return res.status(500).json(err); //HTTP REQUEST CODE
         }
-
     },
     getById: async (req, res) => {
         try {
-            const transaction = await Transaction.find(req.params.id).populate('bankAccount');
+            const transaction = await Transaction.findById(req.params.id);
             return res.status(200).json(transaction);
         }
         catch (err) {
@@ -37,14 +35,14 @@ const transactionController = {
     },
     getByUserId: async (req, res) => {
         try {
-            const transaction = await Transaction.find({ user: req.body.user }).populate('bankAccount');
+            const transaction = await Transaction.find({ user: req.params.id }).populate('bankAccount');
             return res.status(200).json(transaction);
         }
         catch (err) {
             return res.status(500).json(err);
         }
     },
-    updateBankAccount: async (req, res) => {
+    updateTransaction: async (req, res) => {
         try {
             const transaction = await Transaction.findById(req.body._id);
             await transaction.updateOne({ $set: req.body });
@@ -54,7 +52,7 @@ const transactionController = {
             return res.status(500).json(err);
         }
     },
-    deleteBankAccount: async (req, res) => {
+    deleteTransaction: async (req, res) => {
         try {
             const transaction = await Transaction.findById(req.body._id);
             transaction.isActive = false

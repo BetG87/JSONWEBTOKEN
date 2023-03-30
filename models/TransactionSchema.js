@@ -1,34 +1,34 @@
 const mongoose = require('mongoose');
 
 const transactionSchema = new mongoose.Schema({
-  amount: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    enum: ['deposit', 'withdrawal'],
-    required: true,
-  },
-  bankAccount: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'BankAccount',
+    amount: {
+        type: String,
+        required: true,
     },
-  bankAccountAdmin: {
+    type: {
+        type: String,
+        enum: ['deposit', 'withdrawal'],
+        required: true,
+    },
+    bankAccount: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'BankAccount',
     },
-  isActive: {
+    bankAccountAdmin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'BankAccount',
+    },
+    isActive: {
         type: Boolean,
         default: true,
     },
-  gameProduct: {
+    gameProduct: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'GameProduct',
     },
-  date: {
-    type: Date,
-    default: Date.now,
+    date: {
+        type: Date,
+        default: Date.now,
     },
     status: {
         type: mongoose.Schema.Types.ObjectId,
