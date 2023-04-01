@@ -4,7 +4,6 @@ const bankAccountSchema = new mongoose.Schema({
     bankAccountNumber: {
         type: String,
         required: true,
-        unique: true,
     },
     ownerName: {
         type: String,
